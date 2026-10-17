@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Pantalla que muestra todos los usuarios en una tabla -->
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ni.edu.uam.demologin.controller.UsuariosController"
+      spacing="15" alignment="CENTER"
+      prefWidth="600" prefHeight="400">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="LISTA DE USUARIOS" style="-fx-font-size: 24px;"/>
+
+    <!-- fx:id debe coincidir con el nombre del campo en UsuariosController -->
+    <TableView fx:id="tablaUsuarios" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colNombre" text="Nombre"/>
+            <TableColumn fx:id="colApellido" text="Apellido"/>
+            <TableColumn fx:id="colUsuario" text="Usuario"/>
+            <TableColumn fx:id="colCorreo" text="Correo"/>
+        </columns>
+        <!-- Hace que las columnas se ajusten al ancho de la tabla -->
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+</VBox>
