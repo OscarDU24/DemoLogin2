@@ -12,8 +12,8 @@ public class Usuario extends BaseEntity{
 
 
     public Usuario(String nombre, String apellido
-            , String email, String password
-            , String usuario,String rutafoto) {
+            , String email , String usuario, String password
+            ,String rutafoto) {
         super();
         this.nombre = nombre;
         this.apellido = apellido;

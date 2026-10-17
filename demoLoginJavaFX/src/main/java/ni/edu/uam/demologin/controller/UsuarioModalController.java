@@ -38,11 +38,21 @@ public class UsuarioModalController {
         mostrarImagen(usuario.getRutafoto());
     }
 
+    // Muestra la fotografía del usuario si existe
     private void mostrarImagen(String rutaFoto) {
-        Image image = new Image(new File(rutaFoto)
-                .toURI()
-                .toString());
-        imageFoto.setImage(image);
+        if (rutaFoto == null || rutaFoto.trim().isEmpty()) {
+            imageFoto.setImage(null);
+            return;
+        }
+        File archivo = new File(rutaFoto);
+        if (archivo.exists() && archivo.isFile()) {
+            Image image = new Image(
+                    archivo.toURI().toString()
+            );
+            imageFoto.setImage(image);
+        } else {
+            imageFoto.setImage(null);
+        }
     }
     @FXML
     private void mostrarFoto(ActionEvent event) {
