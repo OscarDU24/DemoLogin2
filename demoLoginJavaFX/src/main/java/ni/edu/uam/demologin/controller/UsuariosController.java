@@ -206,7 +206,6 @@ public class UsuariosController {
     }
 
     // Abre el formulario para registrar un usuario nuevo.
-    // Abre el formulario para registrar un usuario nuevo.
     @FXML
     public void registrarUsuario() {
 
