@@ -16,7 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ni.edu.uam.demologin.model.Usuario;
+import ni.edu.uam.demologin.service.NavegationService;
 import ni.edu.uam.demologin.service.UsuarioService;
+import ni.edu.uam.demologin.service.VentanaService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -210,16 +212,20 @@ public class UsuariosController {
     public void registrarUsuario() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("registro.fxml"));
 
-            Parent root = loader.load();
+            VentanaService ventanaService = new VentanaService();
+            ventanaService.abrirVentana("registro.fxml", tablaUsuarios, "Registrar usuario");
 
-            Stage stage = new Stage();
-            stage.setTitle("Registrar usuario");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
+//            FXMLLoader loader = new FXMLLoader(
+//                    getClass().getResource("registro.fxml"));
+//
+//            Parent root = loader.load();
+//
+//            Stage stage = new Stage();
+//            stage.setTitle("Registrar usuario");
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.setScene(new Scene(root));
+//            stage.showAndWait();
 
             cargarUsuarios();
 

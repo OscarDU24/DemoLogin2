@@ -24,7 +24,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
     public List<Usuario> findAll() throws Exception {
 
         String sql = "SELECT id, primer_nombre, primer_apellido, " +
-                "ruta_foto, usuario, correo, password " +
+                "ruta_foto, usuario, email, password " +
                 "FROM usuario " +
                 "ORDER BY primer_nombre ASC";
 
@@ -39,7 +39,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
                 Usuario usuario = new Usuario(
                         rs.getString("primer_nombre"),
                         rs.getString("primer_apellido"),
-                        rs.getString("correo"),
+                        rs.getString("email"),
                         rs.getString("usuario"),
                         rs.getString("password"),
                         rs.getString("ruta_foto")
@@ -59,7 +59,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
     @Override
     public Optional<Usuario> findById(String id) throws Exception {
         String sql = "SELECT id, primer_nombre, primer_apellido, " +
-                "ruta_foto, usuario, correo, password " +
+                "ruta_foto, usuario, email, password " +
                 "FROM usuario " +
                 "WHERE id = ?";
 
@@ -71,7 +71,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
                     Usuario usuario = new Usuario(
                             rs.getString("primer_nombre"),
                             rs.getString("primer_apellido"),
-                            rs.getString("correo"),
+                            rs.getString("email"),
                             rs.getString("usuario"),
                             rs.getString("password"),
                             rs.getString("ruta_foto")
@@ -89,7 +89,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
     public void save(Usuario usuario) throws Exception {
         String sql = "INSERT INTO usuario " +
                 "(id, primer_nombre, primer_apellido, usuario, " +
-                "password, correo, ruta_foto) " +
+                "password, email, ruta_foto) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = connection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -116,7 +116,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
                 "primer_apellido = ?, " +
                 "usuario = ?, " +
                 "password = ?, " +
-                "correo = ?, " +
+                "email = ?, " +
                 "ruta_foto = ? " +
                 "WHERE id = ?";
 
@@ -147,7 +147,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
     @Override
     public Optional<Usuario> findByLogin(
             String usuario, String password) throws Exception {
-        String sql = "SELECT id, usuario, correo, password " +
+        String sql = "SELECT id, usuario, email, password " +
                 "FROM public.usuario " +
                 "WHERE usuario = ? AND password = ?";
         try (Connection con = connection.getConnection();
@@ -160,7 +160,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
                     u.setId(rs.getObject("id", UUID.class));
                     u.setUsuario(rs.getString("usuario"));
                     u.setPassword(rs.getString("password"));
-                    u.setCorreo(rs.getString("correo"));
+                    u.setCorreo(rs.getString("email"));
                     return Optional.of(u);
                 }
             }
