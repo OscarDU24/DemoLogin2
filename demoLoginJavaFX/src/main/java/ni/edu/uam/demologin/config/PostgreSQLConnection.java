@@ -16,7 +16,7 @@ public class PostgreSQLConnection implements IConnection {
             "jdbc:postgresql://localhost:5432/estudiante";
 
     private static final String usuario = "postgres";
-    private static final String password = "1234";
+    private static final String password = "8998";
 
     @Override
     public Connection getConnection() {
