@@ -7,11 +7,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality; // CAMBIO: import nuevo
 import javafx.stage.Stage;
 import ni.edu.uam.demologin.model.Usuario;
+import ni.edu.uam.demologin.service.NavegationService; // CAMBIO: import nuevo
 import ni.edu.uam.demologin.service.UsuarioService;
 
 import java.io.File;
+import java.io.IOException; // CAMBIO: import nuevo
 import java.util.UUID;
 
 public class RegistroController {
@@ -34,6 +37,9 @@ public class RegistroController {
 
     // Servicio para trabajar con la base de datos.
     private final UsuarioService service = new UsuarioService();
+
+    // CAMBIO: campo nuevo para poder volver al login
+    private final NavegationService navegationService = new NavegationService();
 
     // Usuario que se está editando.
     // Si es null, se registrará un usuario nuevo.
@@ -225,9 +231,8 @@ public class RegistroController {
                 );
             }
 
-            // Cierra la ventana después de guardar.
-            Stage stage = (Stage) txtNombre.getScene().getWindow();
-            stage.close();
+            // CAMBIO: antes aquí se cerraba siempre la ventana (stage.close)
+            cerrarOVolverAlLogin();
 
         } catch (Exception e) {
 
@@ -242,9 +247,27 @@ public class RegistroController {
     // Regresa a la ventana anterior.
     @FXML
     public void regresar() {
+        // CAMBIO: antes aquí se cerraba siempre la ventana (stage.close)
+        cerrarOVolverAlLogin();
+    }
 
+    // CAMBIO: método nuevo, si la ventana es modal la cierra y si es la principal vuelve al login
+    private void cerrarOVolverAlLogin() {
         Stage stage = (Stage) txtNombre.getScene().getWindow();
-        stage.close();
+
+        if (stage.getModality() != Modality.NONE) {
+            stage.close();
+        } else {
+            try {
+                navegationService.cambiarVista("login.fxml", txtNombre);
+            } catch (IOException e) {
+                mostrarMensaje(
+                        Alert.AlertType.ERROR,
+                        "Error",
+                        "No se pudo volver al login: " + e.getMessage()
+                );
+            }
+        }
     }
 
     // Muestra mensajes al usuario.
