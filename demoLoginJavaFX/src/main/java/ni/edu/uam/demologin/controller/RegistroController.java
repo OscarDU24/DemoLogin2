@@ -156,6 +156,40 @@ public class RegistroController {
 
             return;
         }
+        // CAMBIO: nombre y apellido solo con letras
+        if (!txtNombre.getText().trim().matches("[\\p{L} ]+")
+                || !txtApellido.getText().trim().matches("[\\p{L} ]+")) {
+
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Nombre no válido",
+                    "El nombre y el apellido solo pueden contener letras."
+            );
+
+            return;
+        }
+        // CAMBIO: el correo siempre debe llevar @
+        if (!txtCorreo.getText().trim().matches("[^@\\s]+@[^@\\s]+")) {
+
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Correo no válido",
+                    "El correo debe llevar @, por ejemplo: nombre@correo.com"
+            );
+
+            return;
+        }
+        // CAMBIO: la foto también es obligatoria
+        if (rutaFoto == null || rutaFoto.isBlank()) {
+
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Foto requerida",
+                    "Debes seleccionar una fotografía."
+            );
+
+            return;
+        }
 
         String password = txtPassword.getText();
         String confirmaPassword = txtConfirmaPassword.getText();
@@ -251,7 +285,7 @@ public class RegistroController {
         cerrarOVolverAlLogin();
     }
 
-    // CAMBIO: método nuevo, si la ventana es modal la cierra y si es la principal vuelve al login
+    // CAMBIO: metodo nuevo, si la ventana es modal la cierra y si es la principal vuelve al login
     private void cerrarOVolverAlLogin() {
         Stage stage = (Stage) txtNombre.getScene().getWindow();
 

@@ -206,12 +206,16 @@ public class UsuariosController {
     }
 
     // Abre el formulario para registrar un usuario nuevo.
+    // Abre el formulario para registrar un usuario nuevo.
     @FXML
     public void registrarUsuario() {
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("registro.fxml"));
+                    getClass().getResource(
+                            "/ni/edu/uam/demologin/registro.fxml" // CAMBIO: ruta completa, igual que en actualizarUsuario
+                    )
+            );
 
             Parent root = loader.load();
 
@@ -223,7 +227,7 @@ public class UsuariosController {
 
             cargarUsuarios();
 
-        } catch (IOException e) {
+        } catch (Exception e) { // CAMBIO: antes era IOException y no atrapaba este error
             UtilController.mostrarMensaje(
                     Alert.AlertType.ERROR,
                     "Error",
