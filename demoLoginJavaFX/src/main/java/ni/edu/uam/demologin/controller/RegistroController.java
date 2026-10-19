@@ -207,6 +207,21 @@ public class RegistroController {
             return;
         }
 
+        // CAMBIO: contraseña de mínimo 8 caracteres con mayúscula, minúscula, número y carácter especial
+        if (!password.isBlank()
+                && !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\p{L}\\d\\s]).{8,}$")) {
+
+            mostrarMensaje(
+                    Alert.AlertType.WARNING,
+                    "Contraseña no válida",
+                    "La contraseña debe tener al menos 8 caracteres, "
+                            + "una mayúscula, una minúscula, un número "
+                            + "y un carácter especial (por ejemplo: ! @ # $ %)."
+            );
+
+            return;
+        }
+
         // Si se escribe una contraseña, debe confirmarse.
         if (!password.isBlank() || !confirmaPassword.isBlank()) {
 
